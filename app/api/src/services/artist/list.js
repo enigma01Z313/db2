@@ -1,6 +1,7 @@
 const { Artist } = require("../../../db/MySQL/models");
 module.exports = async (req, res, next) => {
   try {
+    //comment
     const artist = await Artist.findAll();
     // return res.json(artist);
     res.jsonData = artist;
