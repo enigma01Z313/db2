@@ -32,6 +32,7 @@ const { Position, Artist, ArtistMeta } = require("../models");
     uuid: uuidv4(),
     name: "Kim Taehyung",
     stageName: "V",
+    debutDate: "12-30-1995",
     age: 26,
   });
 
@@ -39,6 +40,7 @@ const { Position, Artist, ArtistMeta } = require("../models");
     uuid: uuidv4(),
     name: "Park Jimin",
     stageName: "Jimin",
+    debutDate: "03-15-1995",
     age: 26,
   });
 
@@ -46,6 +48,7 @@ const { Position, Artist, ArtistMeta } = require("../models");
     uuid: uuidv4(),
     name: "Kim Seokjin",
     stageName: "Jin",
+    debutDate: "12-14-1991",
     age: 31,
   });
   console.log("Artist seed has been finished");
