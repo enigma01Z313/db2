@@ -1,20 +1,34 @@
-const { Artist } = require("../../../db/MySQL/models");
+const { Artist, ArtistMeta } = require("../../../db/MySQL/models");
 const updateMetaData = require("./_updateMeta");
 
 module.exports = async (req, res, next) => {
-  const { name, stageName, age, ...metaFields } = req.body;
+  const {
+    chainData: { positions },
+  } = res;
+
+  const {
+    name,
+    stageName,
+    age,
+    debutDate,
+    positions: positionIds,
+    ...metaFields
+  } = req.body;
 
   const defaultOptions = {
     name,
     stageName,
+    debutDate,
     age,
   };
-
-
   const createdArtist = await Artist.create(defaultOptions);
-  await updateMetaData(createdArtist.id, metaFields, req.body);
 
-  
+  const artistMeta = await updateMetaData(metaFields, req.body);
+
+  createdArtist.addPositions(positions);
+
+  createdArtist.setArtistMeta(artistMeta);
+
   res.jsonData = createdArtist;
   next();
 };
