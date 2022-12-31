@@ -23,6 +23,21 @@ const artistCreateSchema = new ValidateF()
   .requiredString()
   .param("debutDate")
   .string()
+  .param("positions")
+  .requiredArray("string")
+  .done();
+
+const artistUpdateSchema = new ValidateF()
+  .param("name", "نام")
+  .string()
+  .param("age")
+  .number()
+  .param("stageName")
+  .string()
+  .param("debutDate")
+  .string()
+  .param("positions")
+  .array("string")
   .done();
 
 /***********************/
@@ -60,12 +75,13 @@ router.post(
 
 router.put(
   "/:uuid",
+  use(validator(artistUpdateSchema)),
   getEntityByUuid(info),
   getEntitiesByUuid(info2),
-  update,
+  use(update),
   serveJson
 );
 
-router.delete("/:uuid", getEntityByUuid(info), remove);
+router.delete("/:uuid", getEntityByUuid(info), use(remove));
 
 module.exports = router;
